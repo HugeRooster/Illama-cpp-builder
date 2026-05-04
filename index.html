@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>llama.cpp Command Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <p class="eyebrow">Local Builder</p>
+      <h1>llama.cpp launch command generator</h1>
+      <p class="hero-copy">
+        Configure a Windows launch command with verified llama.cpp flags, choose model files through browser-safe pickers,
+        and generate a PowerShell command or script without a build step.
+      </p>
+      <div class="hero-note">
+        <strong>Important:</strong> browsers do not expose absolute local file paths. The picker is a convenience for file selection,
+        but you may still need to enter the final Windows path manually before generating a runnable script.
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel panel-form">
+        <div class="panel-header">
+          <div>
+            <h2>Configuration</h2>
+            <p>Schema-driven fields grouped by command area.</p>
+          </div>
+          <div class="toolbar">
+            <label class="search-field" for="flag-search">
+              <span>Search flags</span>
+              <input id="flag-search" type="search" placeholder="Search by label, flag, or help text">
+            </label>
+            <button id="reset-form" type="button" class="ghost-button">Reset Form</button>
+          </div>
+        </div>
+
+        <div id="validation-summary" class="validation-summary" hidden></div>
+
+        <section class="preset-section" aria-label="Preset management">
+          <div class="preset-top-row">
+            <label class="preset-name" for="preset-name">
+              <span>Preset name</span>
+              <input id="preset-name" type="text" placeholder="my-server-profile">
+            </label>
+            <button id="save-preset" type="button" class="ghost-button">Save Preset</button>
+          </div>
+          <div class="preset-bottom-row">
+            <label class="preset-list" for="preset-list">
+              <span>Saved presets</span>
+              <select id="preset-list">
+                <option value="">No presets saved</option>
+              </select>
+            </label>
+            <button id="load-preset" type="button" class="ghost-button">Load Preset</button>
+            <button id="delete-preset" type="button" class="ghost-button">Delete Preset</button>
+          </div>
+          <p id="executable-mode" class="preset-mode-note">Executable mode: auto</p>
+        </section>
+
+        <form id="builder-form" novalidate>
+          <section class="static-section">
+            <div class="section-title-row">
+              <div>
+                <h3>Paths</h3>
+                <p>Executable and model paths are required for a local launch command.</p>
+              </div>
+            </div>
+            <div id="path-fields" class="field-grid"></div>
+          </section>
+
+          <div id="flag-groups" class="accordion-stack"></div>
+
+          <div class="actions-row">
+            <button id="generate-script" type="button" class="primary-button">Generate Script</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel panel-output">
+        <div class="panel-header output-header">
+          <div>
+            <h2>Generated Output</h2>
+            <p>Only populated values and enabled flags are emitted.</p>
+          </div>
+        </div>
+
+        <div class="output-block">
+          <div class="output-headline">
+            <h3>PowerShell Command</h3>
+            <button id="copy-command" type="button" class="ghost-button">Copy Command</button>
+          </div>
+          <pre id="command-output" class="code-output" aria-live="polite"></pre>
+        </div>
+
+        <div class="output-block">
+          <div class="output-headline">
+            <h3>PowerShell Script</h3>
+            <button id="copy-script" type="button" class="ghost-button">Copy Script</button>
+          </div>
+          <pre id="script-output" class="code-output" aria-live="polite"></pre>
+        </div>
+
+        <div class="output-block schema-note-block">
+          <h3>Schema Note</h3>
+          <p id="schema-status"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="field-template">
+    <div class="field-card">
+      <label class="field-label"></label>
+      <div class="field-control"></div>
+      <p class="field-help"></p>
+      <p class="field-meta"></p>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

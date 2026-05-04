@@ -1,0 +1,10 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local reference dumps generated during development
+llama-cli-help.txt
+llama-server-help.txt
